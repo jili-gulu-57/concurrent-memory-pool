@@ -1,0 +1,33 @@
+# Visual Studio
+.vs/
+Debug/
+Release/
+x64/
+x86/
+*.obj
+*.pdb
+*.ilk
+*.lib
+*.exp
+*.sdf
+*.suo
+*.user
+*.userp
+*.VC.db
+*.VC.opendb
+*.tlog
+*.lastbuildstate
+*.psess
+
+# Build output
+build/
+bin/
+out/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.idea/
+.vscode/
