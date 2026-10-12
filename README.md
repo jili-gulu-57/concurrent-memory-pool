@@ -105,24 +105,22 @@ size > 256KB：
 
 ```
 concurrent-memory-pool/
-├── 工程项目代码/
-│   └── ConcurrentMemoryPool/
-│       ├── ConcurrentMemoryPool.sln       ← VS2019 解决方案
-│       └── ConcurrentMemoryPool/          ← VS 项目
-│           ├── Common.h                   ← 基础定义：SizeClass / Span / SpanList / FreeList
-│           ├── ThreadCache.h / .cpp      ← 线程缓存
-│           ├── CentralCache.h / .cpp     ← 中心缓存（单例）
-│           ├── PageCache.h / .cpp        ← 页缓存（单例）
-│           ├── PageMap.h                 ← TCMalloc_PageMap1 地址映射
-│           ├── ObjectPool.h              ← 定长对象池（给 TLS ThreadCache 用）
-│           ├── ConcurrentAlloc.h         ← 对外入口 ConcurrentAlloc / ConcurrentFree
-│           ├── UnitTest.cpp              ← 功能正确性测试
-│           └── Benchmark.cpp             ← 性能对比测试
-└── 高并发内存池项目板书及代码/              ← 分阶段迭代的中间版本 + 板书
-    ├── 第1-3节 ...
-    ├── 第4-7节 ...
-    ├── ...
-    └── 第26-28节 ...                     ← 最终版本
+├── README.md
+├── .gitignore
+└── 工程项目代码/ConcurrentMemoryPool/
+    ├── ConcurrentMemoryPool.sln           ← VS2019 解决方案
+    └── ConcurrentMemoryPool/              ← VS 项目
+        ├── Common.h                       ← 基础定义：SizeClass / Span / SpanList / FreeList
+        ├── ThreadCache.h / .cpp          ← 线程缓存
+        ├── CentralCache.h / .cpp         ← 中心缓存（单例）
+        ├── PageCache.h / .cpp            ← 页缓存（单例）
+        ├── PageMap.h                     ← TCMalloc_PageMap1 地址映射
+        ├── ObjectPool.h                  ← 定长对象池（给 TLS ThreadCache 用）
+        ├── ConcurrentAlloc.h             ← 对外入口 ConcurrentAlloc / ConcurrentFree
+        ├── UnitTest.cpp                  ← 功能正确性测试
+        ├── Benchmark.cpp                 ← 性能对比测试
+        ├── ConcurrentMemoryPool.vcxproj  ← VS 工程文件
+        └── ConcurrentMemoryPool.vcxproj.filters
 ```
 
 ## 编译运行
@@ -133,9 +131,13 @@ concurrent-memory-pool/
 2. 选择 Release / x64 配置
 3. 编译并运行
 
-### 独立编译最终版
+### 独立编译
 
-最终版源码位于 `高并发内存池项目板书及代码/第26-28节性能测试及其优化/`，直接编译该目录下所有 `.cpp` 即可。
+将 `工程项目代码/ConcurrentMemoryPool/ConcurrentMemoryPool/` 下所有 `.cpp` 与 `.h` 文件用支持 C++11 及以上的编译器直接编译即可，例如 g++：
+
+```bash
+g++ -std=c++11 -O2 -pthread -o memory_pool Benchmark.cpp ThreadCache.cpp CentralCache.cpp PageCache.cpp
+```
 
 ## 性能优化要点
 
